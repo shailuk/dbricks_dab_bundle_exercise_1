@@ -1,0 +1,42 @@
+bundle:
+  name: dab_tutorials
+  uuid: 87242eb9-7d3c-4366-980f-f0c33f4f6551
+
+# 1. Declare custom variables globally at the root level first
+variables:
+  catalog:
+    description: "Unity Catalog name"
+    default: "workspace"
+  schema:
+    description: "Schema name"
+    default: "default"
+
+include:
+  - resources/*.yml
+  - resources/*/*.yml
+
+targets:
+  dev:
+    mode: development
+    default: true
+    workspace:
+      host: dbc-97c91771-6169.cloud.databricks.com
+      sync_mode: "overwrite"
+    permissions:
+      - group_name: admins
+        level: CAN_MANAGE
+    presets: 
+      name_prefix: ${workspace.current_user.short_name}
+  prod:
+    mode: production
+    workspace:
+      host: dbc-97c91771-6169.cloud.databricks.com
+      root_path: /Workspace/Users/shailesh.nookala@gmail.com/databricks_bootcamp/PROD/.bundle/${bundle.name}/${bundle.target}
+    variables:
+      catalog: workspace
+      schema: prod
+    permissions:
+      - user_name: shailesh.nookala@gmail.com
+        level: CAN_MANAGE
+      - group_name: admins 
+        level: CAN_RUN

@@ -1,0 +1,14 @@
+id: 292bad7c-c3ab-48b6-96cb-5918e0658ceb
+pipeline_type: WORKSPACE
+name: pipeline_new
+libraries:
+  - glob:
+      include: ../../src/pipeline_1/transformations/**
+schema: gold
+continuous: false
+development: false
+photon: true
+channel: CURRENT
+catalog: dbricks_bootcamp
+serverless: true
+root_path: ../../src/pipeline_1
